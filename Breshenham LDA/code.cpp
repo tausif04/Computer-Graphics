@@ -4,6 +4,8 @@
 
 using namespace std;
 
+int x1_input, y1_input, x2_input, y2_input;
+
 void BresenhamLine(int x1, int y1, int x2, int y2)
 {
     int dx = abs(x2 - x1);
@@ -17,7 +19,6 @@ void BresenhamLine(int x1, int y1, int x2, int y2)
 
     int p;
 
-    // Case 1: |slope| <= 1
     if (dy <= dx)
     {
         p = 2 * dy - dx;
@@ -39,7 +40,6 @@ void BresenhamLine(int x1, int y1, int x2, int y2)
             x += xInc;
         }
     }
-    // Case 2: |slope| > 1
     else
     {
         p = 2 * dx - dy;
@@ -71,7 +71,7 @@ void display()
     glPointSize(3);
 
     glBegin(GL_POINTS);
-    BresenhamLine(-50, -20, 80, 60); // Example line
+    BresenhamLine(x1_input, y1_input, x2_input, y2_input);
     glEnd();
 
     glFlush();
@@ -87,14 +87,17 @@ void init()
 
 int main(int argc, char **argv)
 {
+    cout << "Enter x1 y1 x2 y2: ";
+    cin >> x1_input >> y1_input >> x2_input >> y2_input;
+
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(600, 600);
     glutCreateWindow("Bresenham Line Drawing Algorithm");
 
     init();
-
     glutDisplayFunc(display);
     glutMainLoop();
+
     return 0;
 }
